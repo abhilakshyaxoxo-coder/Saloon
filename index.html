@@ -3,11 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Salon | Bareilly</title>
+    <title>Premium Salon | New Delhi</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=1919&auto=format&fit=crop">
+
+    <style>
+        /* === CSS VARIABLES === */
+        :root {
+            --bg-main: #F9F9F9;
+            --primary: #1A292F;
+            --primary-rgb: 26, 41, 47;
+            --accent: #008080;
+            --cta: #D4AF37;
+            --text-dark: #333333;
+            --font-head: 'Playfair Display', serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        /* === RESET & BASE === */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevents blob horizontal scroll */
+        }
+        h1, h2, h3, h4 { font-family: var(--font-head); color: var(--primary); }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 40px 0; }
+        .text-center { text-align: center; }
+        .py-section { padding: 80px 0; }
+
+        /* === HEADER & NAV === */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky; top: 0; z-index: 100;
+        }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; }
+        .logo { font-size: 1.8rem; }
+        nav a { margin-left: 20px; text-decoration: none; color: var(--primary); font-weight: 600; transition: color 0.3s; }
+        nav a:hover { color: var(--accent); }
+
+        /* === HERO SECTION === */
+        .hero {
+            background: linear-gradient(rgba(var(--primary-rgb), 0.85), rgba(var(--primary-rgb), 0.7)), 
+                        url('https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=1919&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+            text-align: center;
+            padding: 150px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero h2 { color: #fff; font-size: 3rem; margin-bottom: 20px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .hero p { font-size: 1.2rem; margin-bottom: 30px; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+
+        /* === CSS GRAPHICS & GLASSMORPHISM === */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            border-radius: 16px;
+            max-width: 800px;
+        }
+        .relative-overflow { position: relative; z-index: 1; }
+        .css-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            z-index: -1;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+        .blob-1 { width: 400px; height: 400px; background: var(--accent); top: 50px; left: -100px; }
+        .blob-2 { width: 500px; height: 500px; background: var(--cta); bottom: 100px; right: -150px; }
+
+        /* === BUTTONS === */
+        .cta-btn {
+            background-color: var(--cta); color: var(--primary); border: none; padding: 15px 30px;
+            font-size: 1rem; font-weight: 600; cursor: pointer; font-family: var(--font-body);
+            border-radius: 4px; transition: all 0.3s ease;
+        }
+        .cta-btn:hover { background-color: #b8972e; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4); }
+        .cta-btn.outline { background: transparent; border: 2px solid var(--cta); color: var(--primary); padding: 10px 20px; margin-top: 15px; }
+        .cta-btn.outline:hover { background: var(--cta); color: #fff; }
+        .w-100 { width: 100%; }
+
+        /* === SERVICES === */
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 40px; }
+        .filter-controls { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
+        .filter-btn { background: #fff; border: 1px solid var(--accent); color: var(--accent); padding: 8px 24px; cursor: pointer; border-radius: 30px; transition: 0.3s; font-weight: 600; }
+        .filter-btn.active, .filter-btn:hover { background: var(--accent); color: #fff; box-shadow: 0 4px 10px rgba(0, 128, 128, 0.3); }
+        .services-grid { display: grid; grid-template-columns: 1fr; gap: 30px; }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,0.8);
+            border-top: 4px solid var(--accent);
+            transition: transform 0.3s ease;
+        }
+        .glass-card:hover { transform: translateY(-5px); }
+        .service-meta { display: flex; justify-content: space-between; margin: 15px 0; font-weight: 600; }
+        .price { color: var(--primary); font-size: 1.2rem; }
+        .duration { color: var(--accent); }
+
+        /* === EXPERTS === */
+        .bg-primary { background-color: var(--primary); }
+        .text-white { color: #fff !important; }
+        .stylists-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        .stylist-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 30px; text-align: center; border-radius: 8px;
+        }
+        .expertise { color: var(--cta); font-weight: 600; margin: 10px 0; }
+
+        /* === TESTIMONIALS (CSS Only Slider) === */
+        .testimonial-slider {
+            display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding-bottom: 20px;
+            scrollbar-width: none; /* Firefox */
+        }
+        .testimonial-slider::-webkit-scrollbar { display: none; /* Chrome/Safari */ }
+        .testimonial-card {
+            flex: 0 0 100%; scroll-snap-align: start;
+            background: #fff; padding: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-radius: 8px;
+        }
+
+        /* === FOOTER === */
+        footer { background: #fff; border-top: 1px solid #eaeaea; }
+        .footer-grid { display: grid; grid-template-columns: 1fr; gap: 30px; }
+        .upi-icons span { display: inline-block; background: var(--bg-main); padding: 8px 12px; margin: 5px 5px 0 0; font-size: 0.9rem; border-radius: 6px; border: 1px solid #eaeaea; font-weight: 600;}
+        .footer-credit { background: var(--primary); color: #fff; text-align: center; padding: 15px; font-size: 0.95rem; }
+        .footer-credit strong { color: var(--cta); letter-spacing: 1px; }
+
+        /* === FLOATING WHATSAPP === */
+        .float-wa {
+            position: fixed; bottom: 30px; right: 30px; background-color: #25D366; color: white;
+            padding: 15px 25px; border-radius: 50px; text-decoration: none; font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 1000; transition: transform 0.3s;
+        }
+        .float-wa:hover { transform: scale(1.05); }
+
+        /* === MODAL === */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(26, 41, 47, 0.9); backdrop-filter: blur(5px); z-index: 2000;
+            justify-content: center; align-items: center;
+        }
+        .modal-content {
+            background: #fff; padding: 40px; width: 90%; max-width: 400px;
+            position: relative; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: var(--primary); }
+        form input, form select { width: 100%; padding: 12px; margin: 10px 0 20px 0; border: 1px solid #ddd; border-radius: 4px; font-family: var(--font-body); }
+
+        /* === MEDIA QUERIES === */
+        @media(min-width: 768px) {
+            .services-grid, .footer-grid, .stylists-grid { grid-template-columns: repeat(3, 1fr); }
+            .testimonial-card { flex: 0 0 calc(50% - 10px); }
+            .hero h2 { font-size: 4rem; }
+            .nav-container { padding: 20px 0; }
+        }
+    </style>
 </head>
 <body>
 
@@ -16,7 +191,7 @@
             <h1 class="logo">Aura Salon</h1>
             <nav>
                 <a href="#services">Services</a>
-                <a href="#stylists">Experts</a>
+                <a href="#experts">Experts</a>
                 <a href="#reviews">Reviews</a>
             </nav>
         </div>
@@ -24,15 +199,18 @@
 
     <main>
         <section class="hero">
-            <div class="hero-content">
-                <h2>Experience Premium Care in Bareilly</h2>
+            <div class="hero-content glass-panel">
+                <h2>Experience Premium Care in Delhi</h2>
                 <p>Luxury grooming and wellness treatments tailored for the modern individual.</p>
                 <button class="cta-btn" onclick="openModal()">Book Appointment</button>
             </div>
         </section>
 
-        <section id="services" class="container">
-            <h2 class="section-title">Our Services</h2>
+        <section id="services" class="container relative-overflow py-section">
+            <div class="css-blob blob-1"></div>
+            <div class="css-blob blob-2"></div>
+            
+            <h2 class="section-title">Our Premium Services</h2>
             
             <div class="filter-controls">
                 <button class="filter-btn active" data-filter="all">All</button>
@@ -42,7 +220,7 @@
             </div>
 
             <div class="services-grid">
-                <div class="service-card" data-category="hair">
+                <div class="service-card glass-card" data-category="hair">
                     <h3>Keratin Hair Spa</h3>
                     <div class="service-meta">
                         <span class="price">₹1,499</span>
@@ -51,7 +229,8 @@
                     <p>Deep conditioning treatment for smooth, frizz-free hair.</p>
                     <button class="cta-btn outline" onclick="openModal('Keratin Hair Spa')">Book Now</button>
                 </div>
-                <div class="service-card" data-category="skin">
+                
+                <div class="service-card glass-card" data-category="skin">
                     <h3>O3+ Advanced Facial</h3>
                     <div class="service-meta">
                         <span class="price">₹2,199</span>
@@ -60,7 +239,8 @@
                     <p>Skin brightening and anti-aging premium facial therapy.</p>
                     <button class="cta-btn outline" onclick="openModal('O3+ Advanced Facial')">Book Now</button>
                 </div>
-                <div class="service-card" data-category="bridal">
+
+                <div class="service-card glass-card" data-category="bridal">
                     <h3>HD Bridal Makeup</h3>
                     <div class="service-meta">
                         <span class="price">₹14,999</span>
@@ -72,7 +252,7 @@
             </div>
         </section>
 
-        <section id="stylists" class="bg-primary text-white py-section">
+        <section id="experts" class="bg-primary text-white py-section">
             <div class="container">
                 <h2 class="section-title text-white">Meet Our Experts</h2>
                 <div class="stylists-grid">
@@ -86,20 +266,29 @@
                         <p class="expertise">8+ Years Expertise</p>
                         <p>Creative Hair Director</p>
                     </div>
+                    <div class="stylist-card">
+                        <h3>Aisha Khan</h3>
+                        <p class="expertise">10+ Years Expertise</p>
+                        <p>Advanced Skincare Specialist</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="reviews" class="container">
+        <section id="reviews" class="container py-section">
             <h2 class="section-title">Client Experiences</h2>
             <div class="testimonial-slider">
                 <div class="testimonial-card">
-                    <p>"The best salon experience in Bareilly. The staff is highly professional and the hygiene standards are top-notch."</p>
+                    <p>"The best salon experience in Delhi. The staff is highly professional and the hygiene standards are top-notch. Love the vibe!"</p>
                     <h4>- Anjali D.</h4>
                 </div>
                 <div class="testimonial-card">
-                    <p>"Rahul completely transformed my hair. Highly recommend the keratin spa!"</p>
+                    <p>"Rahul completely transformed my hair. Highly recommend the keratin spa, it lasted for months."</p>
                     <h4>- Neha S.</h4>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Booked them for my bridal makeup and Priya did a phenomenal job. Totally worth the premium price."</p>
+                    <h4>- Kritika M.</h4>
                 </div>
             </div>
         </section>
@@ -109,13 +298,13 @@
         <div class="container footer-grid">
             <div class="footer-info">
                 <h3>Aura Salon</h3>
-                <p>123 Civil Lines, Bareilly, Uttar Pradesh 243001</p>
+                <p>Connaught Place, Inner Circle, New Delhi 110001</p>
                 <p><strong>Hours:</strong> Mon-Sun, 10:00 AM - 8:00 PM</p>
-                <p><strong>GSTIN:</strong> 09AAAAA0000A1Z5</p>
+                <p><strong>GSTIN:</strong> 07AAAAA0000A1Z5</p>
             </div>
             
             <div class="footer-map">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3510.871867180492!2d79.4182!3d28.3611!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39a007334d02998d%3A0x117498c0dcbf7d42!2sCivil%20Lines%2C%20Bareilly%2C%20Uttar%20Pradesh%20243001!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14008.114827184232!2d77.216721!3d28.6295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd37b741d057%3A0xcdee88e47393c3f1!2sConnaught%20Place%2C%20New%20Delhi%2C%20Delhi%20110001!5e0!3m2!1sen!2sin!4v1711200000000!5m2!1sen!2sin" width="100%" height="200" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
 
             <div class="footer-payments">
@@ -128,15 +317,16 @@
                 </div>
             </div>
         </div>
+        <div class="footer-credit">
+            <p>Designed and Developed by <strong>Abhi Lakshya</strong></p>
+        </div>
     </footer>
 
-    <a href="https://wa.me/910000000000?text=Hi,%20I%20would%20like%20to%20book%20an%20appointment." class="float-wa" target="_blank" rel="noopener noreferrer">
-        Chat
-    </a>
+    <a href="https://wa.me/910000000000?text=Hi,%20I%20would%20like%20to%20book%20an%20appointment." class="float-wa" target="_blank" rel="noopener noreferrer">Chat</a>
 
     <div id="bookingModal" class="modal-overlay">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <span class="close-btn" onclick="closeModal()">×</span>
             <h2>Book Appointment</h2>
             <form id="bookingForm">
                 <input type="text" id="custName" placeholder="Your Name" required>
@@ -152,7 +342,74 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Service Filtering Logic
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const serviceCards = document.querySelectorAll('.service-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filterValue = btn.getAttribute('data-filter');
+
+                    serviceCards.forEach(card => {
+                        if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // 2. WhatsApp Deep Link Generation
+            const bookingForm = document.getElementById('bookingForm');
+            
+            bookingForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const name = document.getElementById('custName').value;
+                const date = document.getElementById('bookDate').value;
+                const service = document.getElementById('serviceSelect').value;
+                
+                // Target WhatsApp Number
+                const waNumber = '910000000000'; 
+                
+                const message = `Hi Aura Salon, I am ${name}. I would like to book an appointment for '${service}' on ${date}. Please confirm.`;
+                
+                const encodedMessage = encodeURIComponent(message);
+                const waLink = `https://wa.me/${waNumber}?text=${encodedMessage}`;
+                
+                window.open(waLink, '_blank');
+                closeModal();
+            });
+        });
+
+        // 3. Modal Controls
+        function openModal(serviceName = null) {
+            document.getElementById('bookingModal').style.display = 'flex';
+            if(serviceName) {
+                const selectElement = document.getElementById('serviceSelect');
+                selectElement.value = serviceName;
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('bookingModal').style.display = 'none';
+            document.getElementById('bookingForm').reset();
+        }
+
+        // Close modal on outside click
+        window.onclick = function(event) {
+            const modal = document.getElementById('bookingModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
 </body>
 </html>
-
